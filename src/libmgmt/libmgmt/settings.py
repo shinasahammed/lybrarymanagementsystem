@@ -18,7 +18,7 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','https://lybrarymanagementsystem.onrender.com']
 
 # Dynamically add Render host
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
@@ -123,7 +123,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # --------------------
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_TRUSTED_ORIGINS = [
-    'https://your-app-name.onrender.com',  # replace with your Render domain
+    'https://lybrarymanagementsystem.onrender.com',  # replace with your Render domain
 ]
 
 # --------------------
