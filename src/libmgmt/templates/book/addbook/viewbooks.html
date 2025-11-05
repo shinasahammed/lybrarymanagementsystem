@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Books</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Published Date</th>
+                <th>category</th>
+                <th>ISBN</th>
+                <th>Available Copies</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>
+                    {% if book.image %}
+                        <img src="{{ book.image.url }}" alt="{{ book.title }}" style="height:60px; border-radius:8px;">
+                    {% else %}
+                        <span class="badge out">No Image</span>
+                    {% endif %}
+                </td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.published_date }}</td>
+                <td>{{ book.category}}</td>
+                <td>{{ book.isbn }}</td>
+
+                <td>
+                    {% if book.available_copies > 0 %}
+                        <span class="badge instock">{{ book.available_copies }}</span>
+                    {% else %}
+                        <span class="badge out">0</span>
+                    {% endif %}
+                </td>
+                <td><a class="table-btn edit" href="{% url 'updatebook' book.id %}">Edit</a></td>
+                <td><a class="table-btn delete" href="{% url 'removebook' book.id %}">Delete</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8">No books available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

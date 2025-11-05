@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Books</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>category</th>
+
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cat in cate %}
+            <tr>
+
+                <td>{{ cat.category }}</td>
+
+                <td><a class="table-btn edit" href="{% url 'editcat' cat.id %}">Edit</a></td>
+                <td><a class="table-btn delete" href="{% url 'removecat' cat.id %}">Delete</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8">No category available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

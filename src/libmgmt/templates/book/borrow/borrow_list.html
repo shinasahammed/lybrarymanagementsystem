@@ -1,0 +1,75 @@
+<h2>Your Borrowed Books</h2>
+
+<style>
+    body {
+        font-family: "Poppins", sans-serif;
+        background: #f5f7fa;
+        padding: 40px;
+    }
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 25px;
+    }
+    table {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    th, td {
+        padding: 14px 18px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        font-size: 15px;
+    }
+    th {
+        background: #00796b;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    tr:nth-child(even) {
+        background: #f2f2f2;
+    }
+    tr:hover {
+        background: #e0f2f1;
+    }
+    td {
+        color: #333;
+    }
+    .returned {
+        color: #2e7d32;
+        font-weight: 600;
+    }
+    .pending {
+        color: #d32f2f;
+        font-weight: 600;
+    }
+</style>
+
+<table>
+    <tr>
+        <th>Book</th>
+        <th>Borrowed On</th>
+        <th>Status</th>
+    </tr>
+    {% for b in borrows %}
+    <tr>
+        <td>{{ b.book.title }}</td>
+        <td>{{ b.borrow_date|date:"Y-m-d H:i" }}</td>
+        <td>
+            {% if b.is_returned %}
+                <span class="returned">Returned</span>
+            {% else %}
+                <span class="pending">Pending</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3">No borrowed books.</td></tr>
+    {% endfor %}
+</table>

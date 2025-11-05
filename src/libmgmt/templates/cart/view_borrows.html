@@ -1,0 +1,27 @@
+<h2>Borrowed Books</h2>
+<table>
+    <tr>
+        <th>user</th>
+        <th>Book</th>
+        <th>Borrowed On</th>
+        <th>Returned?</th>
+        <th>Actions</th>
+    </tr>
+    {% for b in borrows %}
+    <tr>
+        <td>{{ b.user.username }}</td>
+        <td>{{ b.book.title }}</td>
+        <td>{{ b.borrow_date }}</td>
+        <td>{{ b.is_returned }}</td>
+        <td>
+            {% if not b.is_returned %}
+            <a href="{% url 'return_book' user.id %}">Return</a>
+            {% else %}
+            Returned on {{ b.return_date }}
+            {% endif %}
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No borrowed books.</td></tr>
+    {% endfor %}
+</table>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Borrowed Books</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        th { background: #4CAF50; color: white; }
+        a { text-decoration: none; color: #007BFF; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<h1>All Borrowed Books</h1>
+<table>
+    <tr>
+        <th>User</th>
+        <th>Phone</th>
+        <th>Book</th>
+        <th>Borrow Date</th>
+        <th>Return Date</th>
+        <th>Actions</th>
+        <th>Delete</th>
+    </tr>
+
+    {% for b in borrows %}
+        {% if not b.is_hidden %}
+        <tr>
+            <td>{{ b.user.username|default:"-" }}</td>
+            <td>{{ b.user.phone_number|default:"-" }}</td>
+            <td>{{ b.book.title|default:"-" }}</td>
+            <td>{{ b.borrow_date|date:"Y-m-d H:i"|default:"-" }}</td>
+            <td>{{ b.return_date|date:"Y-m-d H:i"|default:"-" }}</td>
+
+            <td>
+                {% if not b.is_returned %}
+                    <a href="{% url 'return_book' b.id %}">Return</a>
+                {% else %}
+                    Returned on {{ b.return_date|date:"Y-m-d H:i" }}
+                {% endif %}
+            </td>
+
+            <td>
+                <a href="{% url 'delete_borrow_by_user' b.id %}"
+                   onclick="return confirm('Are you sure you want to hide this returned borrow record?');">
+                   Delete
+                </a>
+            </td>
+        </tr>
+        {% endif %}
+    {% empty %}
+    <tr>
+        <td colspan="7">No borrowed books yet.</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

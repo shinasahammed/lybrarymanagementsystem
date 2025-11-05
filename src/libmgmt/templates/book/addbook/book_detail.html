@@ -1,0 +1,117 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ book.title }} - Details</title>
+
+    <!-- CSS FILES -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/tooplate-barista.css' %}" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #121212;
+            color: #f8f9fa;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .book-container {
+            min-height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .book-card {
+            background-color: #1c1c1c;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .book-card img {
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+
+        .book-card img:hover {
+            transform: scale(1.05);
+        }
+
+        .book-info h2 {
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .book-info p {
+            color: #d6d6d6;
+            font-size: 1.1rem;
+        }
+
+        .btn-custom {
+            background-color: #f9b233;
+            color: #000;
+            border: none;
+            font-weight: 600;
+        }
+
+        .btn-custom:hover {
+            background-color: #ffca2c;
+        }
+
+        .badge {
+            font-size: 0.9rem;
+            padding: 8px 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="book-container">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-10 book-card">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-md-6 col-12 mb-4 text-center">
+                        {% if book.image %}
+                        <img src="{{ book.image.url }}" alt="{{ book.title }}" class="img-fluid shadow">
+                        {% else %}
+                        <div class="p-5 bg-secondary text-white text-center rounded">No Image Available</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-lg-7 col-md-6 col-12 book-info">
+                        <h2>{{ book.title }}</h2>
+                        <p><strong>Author:</strong> {{ book.author }}</p>
+                        <p><strong>Category:</strong> {{ book.category }}</p>
+                        <p><strong>Published Date:</strong> {{ book.published_date }}</p>
+                        <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+
+                        {% if book.available_copies > 0 %}
+                        <span class="badge bg-success">Available: {{ book.available_copies }}</span>
+                        {% else %}
+                        <span class="badge bg-danger">Out of Stock</span>
+                        {% endif %}
+
+                        <div class="mt-4">
+                            <a href="{% url 'customer_dashboard' %}" class="btn btn-outline-light me-2">← Back to
+                                Library</a>
+                            {% if book.available_copies > 0 %}
+
+                            <!-- In your book list template -->
+                            <a href="{% url 'borrow_book' book.id %}">Borrow</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
