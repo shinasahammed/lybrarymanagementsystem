@@ -84,7 +84,7 @@ DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get(
             "DATABASE_URL",
-            "postgresql://postgres:[YOUR_PASSWORD]@db.omhdnpxxizaaarskczkf.supabase.co:5432/postgres"
+            "postgresql://postgres:[shinas@6363]@db.omhdnpxxizaaarskczkf.supabase.co:5432/postgres"
         ),
         conn_max_age=600,
         ssl_require=True,
